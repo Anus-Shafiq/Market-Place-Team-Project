@@ -2,334 +2,344 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <title>Student Market Place</title>
   </head>
 
   <body>
     <!-- navbar start -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container">
-        <a class="navbar-brand" href="#"
-          ><span class="display-6 fw-bold text-secondary"
-            >Student Market Place</span
-          ></a
-        >
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <span class="display-6 fw-bold text-warning">Student Market Place</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title text-dark" id="offcanvasNavbarLabel">
+          Student Market Place
+        </h5>
         <button
-          class="navbar-toggler"
           type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="offcanvas offcanvas-start"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-              Student Market Place
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <div class="navbar-nav justify-content-center flex-grow-1 pe-3">
-              <div class="w-50 row">
-                <input
-                  class="form-control me-2 w-100 my-auto rounded-3"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </div>
-            </div>
-            <form class="d-flex my-auto gap-2" role="search">
-              <button
-                type="button"
-                class="btn bg-secondary fw-bold text-white"
-                data-bs-toggle="modal"
-                data-bs-target="#signUp"
-              >
-                Add Post
-              </button>
-            </form>
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="navbar-nav justify-content-center flex-grow-1 pe-3">
+          <div class="w-75 mx-auto my-3">
+            <input
+              class="form-control me-2 w-100 rounded-3"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
           </div>
         </div>
-      </div>
-    </nav>
-
-    <!-- Navbar end  -->
-
-    <!-- add post modal start-->
-    <div
-      class="modal fade"
-      id="signUp"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      style="display: none"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog h-100 align-items-center d-flex">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1
-              class="modal-title fs-5 fw-bold text-center w-100"
-              id="exampleModalLabel"
-            >
-              Post Your Ad
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="imageInput" class="h-100 w-100"
-                ><img
-                  id="productImage"
-                  src="./assets/image.jpg"
-                  class="card-img-top rounded-3"
-                  alt="..."
-              /></label>
-              <input
-                id="imageInput"
-                class="d-none"
-                type="file"
-                accept="image/png, image/gif, image/jpeg"
-              />
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="productTitle"
-                placeholder="Product Title"
-              />
-              <label for="floatingInput">Product Title</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="productPrice"
-                placeholder="Product Price"
-              />
-              <label for="floatingInput">Product Price</label>
-            </div>
-            <div class="form-floating">
-              <textarea
-                id="productDecription"
-                class="form-control"
-                rows="4"
-                placeholder="Product Decription"
-              ></textarea>
-              <label for="floatingPassword">Product Decription</label>
-            </div>
-          </div>
-          <div class="footer text-center py-2">
-            <button
-              type="button"
-              class="btn bg-secondary text-white"
-              data-bs-dismiss="modal"
-            >
-              Post Ad
-            </button>
-          </div>
+        <div class="text-center my-3">
+          <button class="btn btn-outline-warning me-3" onclick="fetchFavorites()">My Favorites</button>
+          <button
+            type="button"
+            class="btn btn-warning text-black fw-bold"
+            data-bs-toggle="modal"
+            data-bs-target="#signUp"
+          >
+            Add Post
+          </button>
         </div>
       </div>
     </div>
-    <!-- add post modal end-->
+  </div>
+</nav>
+    <!-- Navbar end  -->
+
+      <!-- banner start -->
+
+      <div class="banner d-flex justify-content-center align-items-center text-center text-white py-5" 
+      style="background-image: url(assets/banner.jpg); background-repeat: no-repeat; background-position: center; background-size: cover; height: 80vh;">
+   <div class="container bg-dark bg-opacity-50 p-3 p-md-5 rounded-3">
+     <h2 class="display-4 fw-bold mb-3 text-uppercase letter-spacing-2 ">Welcome to the Student Market Place!</h2>
+     <p class="lead mb-4 fw-light">Find great deals on student essentials, textbooks, and more. Join our community now!</p>
+     <a href="#join-now" class="btn btn-light btn-lg px-4 py-2 text-uppercase shadow-sm hover-shadow">Join Now</a>
+   </div>
+ </div>
+      <!-- banner end -->
+      
+
+    <!-- add post modal start-->
+<div
+class="modal fade"
+id="signUp"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+style="display: none"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-sm position-fixed top-0 end-0 p-3">
+  <div class="modal-content">
+    <div class="modal-header bg-dark text-white">
+      <h1
+        class="modal-title fs-5 fw-bold text-center w-100 "
+        id="exampleModalLabel"
+      >
+        Post Product
+      </h1>
+      <button
+        type="button"
+        class="btn-close bg-white"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-floating mb-3">
+        <img
+        id="productImage"
+          src="./assets/image.jpg"
+          class="card-img-top rounded-3"
+          alt="..."
+        />
+        <input type="file" id="productFile">
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="productTitle"
+          placeholder="Product Title"
+        />
+        <label for="floatingInput">Product Title</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="productPrice"
+          placeholder="Product Price"
+        />
+        <label for="floatingInput">Product Price</label>
+      </div>
+      <div class="form-floating">
+        <textarea
+          id="productDescription"
+          class="form-control"
+          rows="4"
+          placeholder="Product Description"
+        ></textarea>
+        <label for="floatingPassword">Product Description</label>
+      </div>
+    </div>
+    <div class="footer text-center py-2">
+      <button
+        type="button"
+        class="btn bg-secondary text-white"
+        data-bs-dismiss="modal"
+        id="postBtn"
+      >
+        Post Ad
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- add post modal end-->
 
     <!-- card section start-->
 
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 col-sm-12 col-xl-3">
-          <div class="card border-0 mx-auto my-2" style="width: 18rem">
-            <img
-              src="./assets/car.jpg"
-              class="card-img-top img-fluid rounded-3"
-              alt="..."
-            />
-            <div class="py-2">
-              <h5 class="card-title fw-bold m-0 p-0" id="price">$350</h5>
-              <p class="m-0 p-0 text-black-50">BMW Car</p>
-            </div>
-          </div>
-        </div>
+    <div class="container mt-4">
+      <h1 class="text-center text-primary fw-bold mb-4 display-4 display-md-3">Student Products</h1>
 
-        <div class="col-lg-4 col-md-6 col-12 col-sm-12 col-xl-3">
-          <div class="card border-0 mx-auto my-2" style="width: 18rem">
-            <img
-              src="./assets/car.jpg"
-              class="card-img-top img-fluid rounded-3"
-              alt="..."
-            />
-            <div class="py-2">
-              <h5 class="card-title fw-bold m-0 p-0" id="price">$350</h5>
-              <p class="m-0 p-0 text-black-50">BMW Car</p>
-            </div>
+      <div class="row   " id="productList" >
+        <!-- Products will be displayed here -->
+      </div>
+    </div>
+    
+    <!-- card section end-->
+
+<!-- Team Section Start -->
+<section class="team-section py-5" style="background-color: #05579b; color: white;">
+  <div class="container">
+    <h1 class="text-center text-white mb-4">Our Team</h1>
+    <div class="row">
+      <!-- Muhammad Moeed -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow-lg" style="background-color: #00274d; color: white;">
+          <img src="assets/moeed.jpg" class="card-img-top" alt="Muhammad Moeed" />
+          <div class="card-body text-center">
+            <h5 class="card-title">Muhammad Moeed</h5>
+            <p class="card-text" >Backend Developer</p>
+            <p class="text-white">Responsible for backend development, API integration, and database management.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-12 col-sm-12 col-xl-3">
-          <div class="card border-0 mx-auto my-2" style="width: 18rem">
-            <img
-              src="./assets/car.jpg"
-              class="card-img-top img-fluid rounded-3"
-              alt="..."
-            />
-            <div class="py-2">
-              <h5 class="card-title fw-bold m-0 p-0" id="price">$350</h5>
-              <p class="m-0 p-0 text-black-50">BMW Car</p>
-            </div>
+      </div>
+      
+      <!-- Anus Shafiq -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow-lg" style="background-color: #00274d; color: white;">
+          <img src="https://avatars.githubusercontent.com/u/172181100?v=4" class="card-img-top" alt="Anus Shafiq" />
+          <div class="card-body text-center">
+            <h5 class="card-title">Anus Shafiq</h5>
+            <p class="card-text">Frontend Developer</p>
+            <p class="text-white">Designed and developed the front-end of the Student Marketplace, ensuring responsive UI.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-12 col-sm-12 col-xl-3">
-          <div class="card border-0 mx-auto my-2" style="width: 18rem">
-            <img
-              src="./assets/car.jpg"
-              class="card-img-top img-fluid rounded-3"
-              alt="..."
-            />
-            <div class="py-2">
-              <h5 class="card-title fw-bold m-0 p-0" id="price">$350</h5>
-              <p class="m-0 p-0 text-black-50">BMW Car</p>
-            </div>
+      </div>
+
+      <!-- Amir Abbad -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow-lg" style="background-color: #00274d; color: white;">
+          <img src="https://avatars.githubusercontent.com/u/172148255?v=4" class="card-img-top" alt="Amir Abbad" />
+          <div class="card-body text-center">
+            <h5 class="card-title">Amir Abbas</h5>
+            <p class="card-text">UI/UX Designer</p>
+            <p class="text-white">Designed the sign-up page and focused on enhancing the overall user experience.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sarim Siraj -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card shadow-lg" style="background-color: #00274d; color: white;">
+          <img src="https://avatars.githubusercontent.com/u/153583309?v=4" class="card-img-top" alt="Sarim Siraj" />
+          <div class="card-body text-center">
+            <h5 class="card-title">Sarim Siraj</h5>
+            <p class="card-text">Authentication Specialist</p>
+            <p class="text-white">Implemented authentication systems for secure logins and account management.</p>
           </div>
         </div>
       </div>
     </div>
-    <!-- card section end-->
+  </div>
+</section>
+<!-- Team Section End -->
 
-    <!-- footer start  -->
-    <footer class="py-5 bg-body-tertiary mt-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <span class="display-6 fw-bold text-secondary"
-              >Student Market Place</span
-            >
-          </div>
-          <div class="col-6 col-md-2 mb-3">
-            <ul class="nav flex-column mt-4">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary">About Us</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary">FAQs</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary">Contact us</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary">Careers</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary"
-                  >Press &amp; Blog</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary"
-                  >term &amp; Conditions</a
-                >
-              </li>
-            </ul>
-          </div>
 
-          <div class="col-6 col-md-2 mb-3">
-            <h5 class="text-secondary mt-2">Customer Service</h5>
-            <ul class="nav flex-column mt-4">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary">Help Center</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary"
-                  >Privacy Policy</a
-                >
-              </li>
 
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-secondary"
-                  >Sell on Market Place</a
-                >
-              </li>
-            </ul>
-          </div>
+    <!-- Footer Start -->
+<footer class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="row">
 
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form class="text-secondary">
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden"
-                  >Email address</label
-                >
-                <input
-                  id="newsletter1"
-                  type="text"
-                  class="form-control"
-                  placeholder="Email address"
-                />
-                <button class="btn btn-light" type="button">Subscribe</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div
-          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-        >
-          <p class="text-secondary">
-            © 2025 Company, Inc. All rights reserved.
-          </p>
-          <ul class="list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="link-body-emphasis" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter"></use></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-body-emphasis" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram"></use></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-body-emphasis" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook"></use></svg
-              ></a>
-            </li>
-          </ul>
-        </div>
+      <!-- Footer Brand -->
+      <div class="col-12">
+        <span class="display-6 fw-bold text-warning">Student Market Place</span>
       </div>
-    </footer>
 
-    <!-- footer end -->
-    <script type="module" src="image.js"></script>
+      <!-- Footer Links - About, FAQs, etc. -->
+      <div class="col-6 col-md-2 mb-3">
+        <ul class="nav flex-column mt-4">
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">About Us</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">FAQs</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Contact us</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Careers</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Press &amp; Blog</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Terms &amp; Conditions</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer Links - Customer Service -->
+      <div class="col-6 col-md-2 mb-3">
+        <h5 class="text-warning mt-2">Customer Service</h5>
+        <ul class="nav flex-column mt-4">
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Help Center</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Privacy Policy</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-white">Sell on Market Place</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Subscription Form -->
+      <div class="col-md-5 offset-md-1 mb-3">
+        <form class="text-white">
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of what's new and exciting from us.</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input
+              id="newsletter1"
+              type="text"
+              class="form-control"
+              placeholder="Email address"
+            />
+            <button class="btn btn-warning" type="button">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Bottom Section with Social Media Links -->
+    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top border-light">
+      <p class="text-white">© 2025 SMIT Team, All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+            <svg class="bi" width="24" height="24">
+              <use xlink:href="#twitter"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+            <svg class="bi" width="24" height="24">
+              <use xlink:href="#instagram"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+            <svg class="bi" width="24" height="24">
+              <use xlink:href="#facebook"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+    <!-- Footer End -->
+
+     <script type="module" src="post.js"></script>
+     <script type="module" src="config.js"></script>
+     <script src="app.js"></script>
     <script src="./bootstrapscript.js"></script>
     <script src="./pooper.js"></script>
     <script src="./bundle.js"></script>
-    
-    <script type="module" src="./config.js"></script>
-    <script type="module" src="./app.js"></script>
-    <script type="module" src="./auth.js"></script>
-  </body>
-</html>
+  </body> 
+
