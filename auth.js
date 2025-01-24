@@ -10,7 +10,7 @@ let SignupName = document.getElementById("signup_name");
 
 async function signUp() {
     try {
-        signupBtnLoader.style.display = "block";
+        // signupBtnLoader.style.display = "block";
         const { data, error } = await supabase.auth.signUp({
             email: SignupEmail.value,
             password: SignupPass.value,
@@ -42,8 +42,9 @@ async function signUp() {
         return data
     } catch (error) {
         console.log(error)
-    }finally {
-        signupBtnLoader.style.display = "none";}
+    }
+    // finally {
+    //     signupBtnLoader.style.display = "none";}
 }
 if (Signupbtn) {
     Signupbtn.addEventListener("click", signUp);
