@@ -128,8 +128,6 @@ function resetForm() {
           `;
         });
     
-        checkFavorites();
-    
       } catch (error) {
         console.error("Error fetching products:", error.message);
       }
