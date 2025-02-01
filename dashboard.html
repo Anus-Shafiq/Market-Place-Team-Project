@@ -112,47 +112,89 @@
   
   <!-- Modal Add Favorite end-->
 
-  <!-- add post modal start-->
-
-  <div class="modal fade" id="signUp" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm position-fixed top-0 end-0 p-3">
-      <div class="modal-content">
-        <div class="modal-header bg-dark text-white">
-          <h1 class="modal-title fs-5 fw-bold text-center w-100" id="exampleModalLabel">
-            Post Product
-          </h1>
-          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="imageInput" class="h-100 w-100"><img id="productImage" src="./assets/image.jpg"
-                class="card-img-top rounded-3" alt="..." /></label>
-            <input id="imageInput" class="d-none productFile" type="file" accept="image/png, image/gif, image/jpeg" />
+    <!-- add post modal start-->
+    <div
+      class="modal fade"
+      id="signUp"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm position-fixed top-0 end-0 p-3">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h1
+              class="modal-title fs-5 fw-bold text-center w-100"
+              id="exampleModalLabel"
+            >
+              Post Product
+            </h1>
+            <button
+              type="button"
+              class="btn-close bg-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="productTitle" placeholder="Product Title" />
-            <label for="floatingInput">Product Title</label>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="imageInput" class="h-100 w-100"
+                ><img
+                  id="productImage"
+                  src="./assets/image.jpg"
+                  class="card-img-top rounded-3"
+                  alt="..."
+              /></label>
+              <input
+                id="imageInput"
+                class="d-none"
+                type="file"
+                accept="image/png, image/gif, image/jpeg"
+              />
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="productTitle"
+                placeholder="Product Title"
+              />
+              <label for="floatingInput">Product Title</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="productPrice"
+                placeholder="Product Price"
+              />
+              <label for="floatingInput">Product Price</label>
+            </div>
+            <div class="form-floating">
+              <textarea
+                id="productDescription"
+                class="form-control"
+                rows="4"
+                placeholder="Product Description"
+              ></textarea>
+              <label for="floatingPassword">Product Description</label>
+            </div>
           </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="productPrice" placeholder="Product Price" />
-            <label for="floatingInput">Product Price</label>
+          <div class="footer text-center py-2">
+            <button
+              type="button"
+              class="btn bg-secondary text-white"
+              data-bs-dismiss="modal"
+              id="postBtn"
+            >
+              Post Ad
+            </button>
           </div>
-          <div class="form-floating">
-            <textarea id="productDescription" class="form-control" rows="4"
-              placeholder="Product Description"></textarea>
-            <label for="floatingPassword">Product Description</label>
-          </div>
-        </div>
-        <div class="footer text-center py-2">
-          <button type="button" class="btn bg-secondary text-white" data-bs-dismiss="modal" id="postBtn">
-            Post Ad
-          </button>
         </div>
       </div>
     </div>
-  </div>
-  <!-- add post modal end-->
+    <!-- add post modal end-->
 
   <!-- card section start-->
 
