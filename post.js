@@ -2,7 +2,6 @@ let productTitle = document.getElementById('productTitle');
 let productPrice = document.getElementById('productPrice');
 let productDescription = document.getElementById("productDescription");
 let productFile = document.querySelector(".productFile");
-let productFile = document.querySelector(".productFile");
 let postButton = document.getElementById("postBtn");
 let productList = document.getElementById("productList");
 
