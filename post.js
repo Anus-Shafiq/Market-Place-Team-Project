@@ -1,9 +1,10 @@
-let productTitle = document.getElementById('productTitle');
-let productPrice = document.getElementById('productPrice');
+let productTitle = document.getElementById("productTitle");
+let productPrice = document.getElementById("productPrice");
 let productDescription = document.getElementById("productDescription");
 let productFile = document.querySelector(".productFile");
 let postButton = document.getElementById("postBtn");
 let productList = document.getElementById("productList");
+
 
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 console.log(currentUser.id);
@@ -18,6 +19,7 @@ async function addPostToDB() {
       title: 'Please enter a valid title (At least 3 characters).',
       icon: 'error',
       confirmButtonText: 'OK'
+
     });
     return;
   }
@@ -25,9 +27,11 @@ async function addPostToDB() {
   const priceRegex = /^[1-9]\d*(\.\d+)?$/;
   if (!priceRegex.test(productPrice.value)) {
     Swal.fire({
+
       title: 'Please enter a valid price (Must be greater than 0).',
       icon: 'error',
       confirmButtonText: 'OK'
+
     });
     return;
   }
@@ -35,18 +39,22 @@ async function addPostToDB() {
   const descriptionRegex = /^.{10,}$/;
   if (!descriptionRegex.test(productDescription.value)) {
     Swal.fire({
+
       title: 'Description must be at least 10 characters long.',
       icon: 'error',
       confirmButtonText: 'OK'
+
     });
     return;
   }
 
   if (productFile.files.length === 0) {
     Swal.fire({
+
       title: 'Please upload an image.',
       icon: 'info',
       confirmButtonText: 'OK'
+
     });
     return;
   }
@@ -60,13 +68,15 @@ async function addPostToDB() {
         userId: currentUser.id,
         description: productDescription.value,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .select();
+
+    console.log("Insert response:", data, error);
+
     if (error) throw error;
     console.log(data);
     await uploadProductImage(data[0].id);
-
   } catch (error) {
     console.error(error.message);
   }
@@ -79,7 +89,6 @@ async function uploadProductImage(productId) {
   let file = productFile.files[0];
 
   try {
-
     //*********************/ Upload image in Bucket *****************
 
     const { data, error } = await supabase.storage
@@ -95,8 +104,7 @@ async function uploadProductImage(productId) {
 
     //*********************/ Get Public Url from bucket*****************
 
-    let { data: imageData } = supabase
-      .storage
+    let { data: imageData } = supabase.storage
       .from("studentImages")
       .getPublicUrl(`products/${productId}_${file.name}`);
 
@@ -108,13 +116,15 @@ async function uploadProductImage(productId) {
       const { error: updateError } = await supabase
         .from("Product")
         .update({ imageUrl: imageData.publicUrl })
-        .eq('id', productId);
+        .eq("id", productId);
 
       if (updateError) throw updateError;
       Swal.fire({
+
         title: 'Product added successfully!',
         icon: 'success',
         confirmButtonText: 'OK'
+
       });
 
       resetForm();
@@ -131,71 +141,103 @@ function resetForm() {
   productFile.value = "";
 }
 
+
 // *****************FETCH PRODUCT FROM DATABASE*********************8*
+
 
 async function fetchProducts() {
   try {
     const { data, error } = await supabase.from("Product").select("*");
+
     const { data: userData, error: userError } = await supabase.from("users").select("*");
     console.log(userData)
+
     if (error) throw error;
     if (userError) throw userError;
 
     let productList = document.getElementById("productList");
     productList.innerHTML = "";
 
+
     data.reverse().forEach(product => {
 
       const user = userData.find(u => u.userId === product.userId);
       console.log(user)
 
+
       const username = user ? user.name : "Anonymouse";
 
       productList.innerHTML += `
 <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="flip-left">
-    <div class="card h-100 shadow-lg rounded-3 overflow-hidden position-relative">
+
+    <div class="card h-100 shadow-sm rounded-3 overflow-hidden position-relative rounded-4 ">
+
 
         <div class="card-body pt-2 px-3">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div>
-                        <strong class='text-dark '>${username}</strong>
+
+                        <strong class='text-primary '>${username}</strong>
                         <br>
-                        <small class="text-muted">
-                           <i class="fa fa-history"></i>
+                        <small class="text-muted text-primary">
+                           <i class="fa fa-history text-primary"></i>
                             ${(() => {
-          let diff = Math.floor((new Date() - new Date(product.created_at)) / 3600000);
-          if (diff < 24) return diff + " hr ago";
-          diff = Math.floor(diff / 24);
-          if (diff < 30) return diff + " days ago";
-          return Math.floor(diff / 30) + " months ago";
-        })()}
+                              let diff = Math.floor(
+                                (new Date() - new Date(product.created_at)) /
+                                  3600000
+                              );
+                              if (diff < 24) return diff + " hr ago";
+                              diff = Math.floor(diff / 24);
+                              if (diff < 30) return diff + " days ago";
+                              return Math.floor(diff / 30) + " months ago";
+                            })()}
                         </small>
                     </div>
                 </div>
-
-                <div class="dropdown">
-                    <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown">
-                        <i class="fa fa-ellipsis-h"></i>
+                <div class="card-body">
+                  <h5 class="card-title">${product.title}</h5>
+                  <p class="card-text">${product.description}</p>
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-danger w-75" onclick="deleteProduct(${
+                      product.id
+                    })">Delete</button>
+                    <button class="btn btn-light" onclick="toggleFavorite(${
+                      product.id
+                    })">
+                      <i id="fav-icon-${
+                        product.id
+                      }" class="fa fa-heart text-secondary"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        ${product.userId === currentUser.id ?
-          `<li><a class="dropdown-item text-danger" href="#" onclick="deleteMyPost('${product.id}')">Delete</a></li>`
-          : ""}
+                        ${
+                          product.userId === currentUser.id
+                            ? `<li><a class="dropdown-item text-primary" href="#" onclick="deleteMyPost('${product.id}')">Delete</a></li>`
+                            : ""
+                        }
+
                     </ul>
                 </div>
             </div>
         </div>    
     
         <div class="position-relative px-2">
-            <img src="${product.imageUrl}" class="card-img-top rounded-3" alt="${product.title}" style="object-fit: cover; height: 180px;">
-            <span class="price-tag position-absolute top-0 end-0 bg-black text-white px-3 mx-2 py-2 rounded-bottom">
+
+            <img src="${
+              product.imageUrl
+            }" class="card-img-top rounded-3 " alt="${
+        product.title
+      }" style="object-fit: cover; height: 180px;">
+            <span class="price-tag position-absolute top-0 end-0 bg-primary text-info px-3 mx-2 py-2 rounded-bottom">
+
                 ${product.price} Pkr
             </span>
         </div>
 
         <div class="card-body px-3">
-            <h5 class="card-title text-truncate" style="max-width: 100%; font-size: 1.1rem; font-weight: 600;">
+
+            <h5 class="card-title text-truncate text-primary" >
+
                 ${product.title}
             </h5>
             <p class="card-text text-muted text-truncate" style="max-height: 50px; overflow: hidden;">
@@ -205,12 +247,16 @@ async function fetchProducts() {
 
         <div class="card-footer d-flex justify-content-between align-items-center p-2">
             <!-- Heart Icon (Left) -->
-            <button class="btn btn-light btn-sm" onclick="toggleFavorite('${product.postId}')">
+
+            <button class="btn btn-light btn-sm" onclick="toggleFavorite('${
+              product.postId
+            }')">
                 <i class="fa fa-heart text-secondary"></i>
             </button>
 
-            <button class="btn btn-warning btn-sm px-4 ms-auto" onclick="showComingSoonAlert()">
-              <i class="fa fa-cart-plus me-2"></i> Buy Now
+            <button class="btn btn-primary btn-sm px-4 ms-auto" onclick="showComingSoonAlert()">
+              <i class="fa fa-cart-plus me-2 text-info"></i> Buy Now
+
             </button>
         </div>
     </div>
@@ -232,6 +278,7 @@ window.onload = fetchProducts;
 async function deleteMyPost(postId) {
   try {
 
+
     const userId = currentUser.id;
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -240,6 +287,7 @@ async function deleteMyPost(postId) {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, keep it'
+
     });
     if (result.isConfirmed) {
       const { data, error } = await supabase
@@ -254,10 +302,12 @@ async function deleteMyPost(postId) {
       if (data.length > 0) {
         fetchProducts();
         Swal.fire({
+
           title: 'Deleted!',
           text: 'Your post has been deleted.',
           icon: 'success',
           confirmButtonText: 'OK'
+
         });
       } else {
         console.log("post not found to delete.");
@@ -295,14 +345,23 @@ window.toggleFavorite = async function (postId) {
     console.log("Removing favorite...");
     await removeFavorite(postId, userId);
   }
-}
+p
+};
+=======
+
 //*********************/ Add post to favorites*****************
 
 async function addFavorite(postId, userId) {
   try {
-    const { error } = await supabase
-      .from("Favorite")
-      .insert([{ postId: postId, userId: userId, created_at: new Date().toISOString() }]);
+
+    const { error } = await supabase.from("Favorite").insert([
+      {
+        postId: postId,
+        userId: userId,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+
 
     if (error) throw error;
 
@@ -314,10 +373,12 @@ async function addFavorite(postId, userId) {
 
     Swal.fire({
       toast: true,
+
       position: 'bottom-end',
       icon: 'success',
       title: 'Favorite Added!',
       text: 'Post Successfully added from your favorites.',
+
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
@@ -349,10 +410,12 @@ async function removeFavorite(postId, userId) {
 
     Swal.fire({
       toast: true,
+
       position: 'bottom-end',
       icon: 'error',
       title: 'Favorite Removed!',
       text: 'Post removed from your favorites.',
+
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,

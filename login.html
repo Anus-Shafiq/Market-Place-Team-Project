@@ -5,34 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Market Place</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="bootstrap.css" />
-    <link rel="stylesheet" href="authentication.css" />
+    <link rel="stylesheet" href="./css/main.min.css" />
   </head>
-  <body>
-    <div class="container">
-      <div class="parent-box">
-        <div class="row box-row d-flex justify-content-center">
+  <body class="">
+    <div class="d-flex align-items-center vh-100">
+      <div class="container">
+        <div class="row d-flex justify-content-center align-content-center">
           <!-- signup-form -->
           <div
             class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-5"
           >
-            <div class="card border-0">
-              <div class="login-text mx-auto text-center">
+            <div class="card border-0 my-auto">
+              <div class="login-text mx-auto text-center text-primary">
                 <h1>Welcome Back 👋</h1>
                 <p>
-                  Find great deals on student essentials, textbooks, and more. Join our community now!
-                
+
+                  Find great deals on student essentials, textbooks, and more.
+                  Join our community now!
+
                 </p>
               </div>
-              <div class="login-form-parent mx-auto">
+              <div class="login-form-parent mx-auto w-50">
                 <div>
-                  <label for="exampleInputEmail1" class="form-label"
+                  <label
+                    for="exampleInputEmail1"
+                    class="form-label text-primary"
                     >Email address</label
                   >
                   <input
                     type="email"
                     placeholder="Example@email.com"
-                    class="form-control"
+                    class="form-control text-primary border-primary bg-light"
                     id="signin-email"
                   />
                 </div>
@@ -41,23 +44,27 @@
                     >Password</label
                   >
                   <input
-                    type="password"
+                    type="password "
                     placeholder="At least 8 characters"
-                    class="form-control"
+                    class="form-control border-primary bg-light"
                     id="signin-password"
                   />
                 </div>
                 <!-- <div class="d-flex justify-content-end mt-3 forgot">
-                  Forgot password?
-                </div> -->
-                <div class="d-flex justify-content-center">
-                  <button type="button" class="btn btn-primary signin-btn" id="signin-btn">
+                    Forgot password?
+                  </div> -->
+                <div class="text-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary signin-btn my-4"
+                    id="signin-btn"
+                  >
                     Sign in
                   </button>
                 </div>
               </div>
 
-              <div class="sign-up-options mx-auto">
+              <div class="sign-up-options mx-auto mt-5">
                 <div class="login-to-sign-up d-flex justify-content-center">
                   Don't you have an account? -
                   <a href="index.html"> Sign up</a>
@@ -71,13 +78,15 @@
 
           <!-- image-box -->
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-            <div class="signup-image d-none d-md-block mt-5">
-              <img
-                src="assets/images/logo.png"
-                alt=""
-                class="img-fluid"
-              />
-              <h1 style="text-align: center;">Edu Exchange</h1>
+
+            <div
+              class="signup-image d-none d-md-block text-center h-100 d-flex align-content-center"
+            >
+              <div class="">
+                <img src="assets/images/logo.png" alt="" class="img-fluid" />
+                <h1 class="text-primary">Edu Exchange</h1>
+              </div>
+
             </div>
           </div>
         </div>
@@ -87,7 +96,9 @@
     <script src="./bootstrapscript.js"></script>
     <script src="./pooper.js"></script>
     <script src="./bundle.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script type="module" src="./config.js"></script>
     <script type="module" src="./app.js"></script>
     <script type="module" src="./auth.js"></script>

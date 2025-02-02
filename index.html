@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Market Place</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="bootstrap.css" />
-    <link rel="stylesheet" href="authentication.css" />
+    <link rel="stylesheet" href="./css/main.min.css" />
   </head>
   <body>
     <div class="container">
@@ -17,13 +16,16 @@
             class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6 mt-5"
           >
             <div class="card rounded-4 border-0">
-              <div class="login-text mx-auto text-center">
+              <div class="login-text mx-auto text-center text-primary">
                 <h1>Create a Account</h1>
                 <p>
+
+ 
                   Find great deals on student essentials, textbooks, and more. Join our community now!
+
                 </p>
               </div>
-              <div class="login-form-parent mx-auto">
+              <div class="login-form-parent w-50 mx-auto">
                 <div>
                   <label for="exampleInputEmail1" class="form-label"
                     >Username</label
@@ -31,7 +33,7 @@
                   <input
                     type="text"
                     placeholder="@username"
-                    class="form-control"
+                    class="form-control bg-light border-primary"
                     id="signup_name"
                   />
                 </div>
@@ -42,7 +44,7 @@
                   <input
                     type="email"
                     placeholder="Example@email.com"
-                    class="form-control"
+                    class="form-control bg-light border-primary"
                     id="signup-email"
                   />
                 </div>
@@ -53,20 +55,20 @@
                   <input
                     type="password"
                     placeholder="At least 8 characters"
-                    class="form-control"
+                    class="form-control bg-light border-primary"
                     id="signup-password"
                   />
                 </div>
                 <!-- <div class="d-flex justify-content-end mt-3 forgot">
                   Forgot password?
                 </div> -->
-                <div class="d-flex justify-content-center">
+                <div class="text-center py-3">
                   <button
                     type="button"
-                    class="btn btn-primary signin-btn"
+                    class="btn btn-primary signin-btn w-100 fw-bold text-info"
                     id="signup-btn"
                   >
-                    Sign in
+                    Sign Up
                   </button>
                 </div>
               </div>
@@ -75,24 +77,35 @@
                 Or
                 <img src="assets/images/Line 2.png" alt="" class="img-fluid" />
               </div>
-              <div class="sign-up-options mx-auto">
+              <div class="sign-up-options mx-auto text-center">
                 <div>
-                  <button class="login-google mt-2">
-                    <img src="assets/images/Google.png" alt="" /> Sign in with
+                  <button
+                    class="login-google mt-2 btn btn-info w-100 text-primary"
+                  >
+                    <img src="assets/images/Google.png" alt="" /> Sign Up with
                     Google
                   </button>
                 </div>
                 <div>
-                  <button class="login-google mt-3">
-                    <img src="assets/images/facebook.png" alt="" /> Sign in with
+                  <button
+                    class="login-google mt-3 btn btn-info w-100 text-primary"
+                  >
+                    <img src="assets/images/facebook.png" alt="" /> Sign Up with
                     Google
                   </button>
                 </div>
-                <div class="login-to-sign-up d-flex justify-content-center">
+                <div
+                  class="login-to-sign-up d-flex justify-content-center mt-5"
+                >
                   Already Register? <a href="login.html"> Login</a>
                 </div>
                 <div class="rights d-flex justify-content-center">
                   © 2025 Edu Exchange ALL RIGHTS RESERVED
+
+                </div>
+              </div>
+            </div>
+
                 </div>
               </div>
             </div>
