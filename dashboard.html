@@ -3,25 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="./css/main.min.css" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <title>Student Market Place</title>
+    <title>Edu Exchange</title>
   </head>
 
-  <body>
+  <body class="bg-light">
     <!-- navbar start -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <span class="display-6 fw-bold text-warning"
-            >Student Market Place</span
+          <h1
+            class="offcanvas-title text-light align-items-center d-flex"
+            id="offcanvasNavbarLabel"
           >
+            <img src="assets/logo.png" alt="" width="80px" height="70px" />
+            <span class="text-secondary display-6 fw-bold">Edu Exchange</span>
+          </h1>
         </a>
         <button
           class="navbar-toggler"
@@ -40,8 +50,11 @@
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div class="offcanvas-header">
+            <a class="navbar-brand" href="#">
+              <img src="assets/logo.png" alt="" width="80px" height="70px" />
+            </a>
             <h5 class="offcanvas-title text-dark" id="offcanvasNavbarLabel">
-              Student Market Place
+              Edu Exchange
             </h5>
             <button
               type="button"
@@ -61,58 +74,122 @@
                 />
               </div>
             </div>
-            <div class="text-center my-3">
-              <button
-                class="btn btn-outline-warning me-3"
-                onclick="fetchFavorites()"
-              >
-                My Favorites
-              </button>
+            <div class="text-center my-3 d-flex align-items-center">
+              <!-- Button -->
               <button
                 type="button"
-                class="btn btn-warning text-black fw-bold"
+                class="btn btn border-0 p-0 me-4"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                <i class="fas fa-heart fs-2" style="color: red"></i>
+                <span
+                  id="favoriteCount"
+                  class="badge bg-light text-primary rounded-circle p-2 position-relative"
+                  style="font-size: 0.8rem"
+                  >0</span
+                >
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-secondary text-primary fw-bold me-4"
                 data-bs-toggle="modal"
                 data-bs-target="#signUp"
               >
                 Add Post
               </button>
+              <i
+                title="LogOut"
+                id="logout"
+                class="fa-solid fa-right-from-bracket text-secondary"
+                style="font-size: 1.5rem; color: white; cursor: pointer"
+              ></i>
             </div>
           </div>
         </div>
       </div>
     </nav>
+
     <!-- Navbar end  -->
 
     <!-- banner start -->
 
     <div
-      class="banner d-flex justify-content-center align-items-center text-center text-white py-5"
+      class="banner d-flex justify-content-center align-items-center text-center text-info py-5"
       style="
-        background-image: url(assets/banner.jpg);
+        background-image: url(assets/three.png);
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         height: 80vh;
       "
     >
-      <div class="container bg-dark bg-opacity-50 p-3 p-md-5 rounded-3">
-        <h2 class="display-4 fw-bold mb-3 text-uppercase letter-spacing-2">
-          Welcome to the Student Market Place!
+      <div
+        data-aos="zoom-in"
+        class="container bg-dark bg-opacity-50 p-3 p-md-5 rounded-3"
+      >
+        <h2
+          class="display-4 fw-bold mb-3 text-uppercase letter-spacing-2 animate__animated animate__zoomIn"
+        >
+          Welcome to Edu Exchange MArket place!
         </h2>
-        <p class="lead mb-4 fw-light">
+        <p class="lead mb-4 fw-light animate__animated animate__fadeInLeft">
           Find great deals on student essentials, textbooks, and more. Join our
           community now!
         </p>
         <a
-          href="#join-now"
-          class="btn btn-light btn-lg px-4 py-2 text-uppercase shadow-sm hover-shadow"
+          href="https://discord.gg/h3UrKEGc"
+          class="btn btn-primary btn-lg px-4 py-2 text-uppercase shadow-sm hover-shadow"
+          target="_blank"
           >Join Now</a
         >
       </div>
     </div>
     <!-- banner end -->
 
+    <!-- Modal Add Favorite start-->
+
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">
+              Favorite Items
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalContent">
+            <!-- Modal Content -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary text-info"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Add Favorite end-->
+
     <!-- add post modal start-->
+
     <div
       class="modal fade"
       id="signUp"
@@ -123,7 +200,7 @@
     >
       <div class="modal-dialog modal-sm position-fixed top-0 end-0 p-3">
         <div class="modal-content">
-          <div class="modal-header bg-dark text-white">
+          <div class="modal-header bg-primary text-info">
             <h1
               class="modal-title fs-5 fw-bold text-center w-100"
               id="exampleModalLabel"
@@ -139,7 +216,9 @@
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label for="imageInput" class="h-100 w-100"
+              <label
+                for="imageInput"
+                class="h-100 w-100 border border-1 rounded-3 border-primary"
                 ><img
                   id="productImage"
                   src="./assets/image.jpg"
@@ -156,7 +235,7 @@
             <div class="form-floating mb-3">
               <input
                 type="text"
-                class="form-control"
+                class="form-control border-primary"
                 id="productTitle"
                 placeholder="Product Title"
               />
@@ -165,7 +244,7 @@
             <div class="form-floating mb-3">
               <input
                 type="text"
-                class="form-control"
+                class="form-control border-primary"
                 id="productPrice"
                 placeholder="Product Price"
               />
@@ -174,7 +253,7 @@
             <div class="form-floating">
               <textarea
                 id="productDescription"
-                class="form-control"
+                class="form-control border-primary"
                 rows="4"
                 placeholder="Product Description"
               ></textarea>
@@ -184,7 +263,7 @@
           <div class="footer text-center py-2">
             <button
               type="button"
-              class="btn bg-secondary text-white"
+              class="btn bg-primary text-info placeholder-wave"
               data-bs-dismiss="modal"
               id="postBtn"
             >
@@ -199,40 +278,42 @@
     <!-- card section start-->
 
     <div class="container mt-4">
-      <h1 class="text-center text-primary fw-bold mb-4 display-4 display-md-3">
+      <h1
+        class="text-center text-primary fw-bold mb-4 display-4 display-md-3 animate__animated animate__slideInLeft"
+      >
         Student Products
       </h1>
 
-      <div class="row" id="productList">
-        <!-- Products will be displayed here -->
+      <div class="row my-4" id="productList">
+        <!-- Products  -->
       </div>
     </div>
 
     <!-- card section end-->
 
     <!-- Team Section Start -->
-    <section
-      class="team-section py-5"
-      style="background-color: #05579b; color: white"
-    >
+    <section class="team-section py-5 bg-info">
       <div class="container">
-        <h1 class="text-center text-white mb-4">Our Team</h1>
+        <h1
+          class="text-center text-primary fw-bold mb-4 animate__animated animate__slideInLeft"
+        >
+          Project Contributors
+        </h1>
         <div class="row">
           <!-- Muhammad Moeed -->
-          <div class="col-lg-3 col-md-6 mb-4">
+          <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-right">
             <div
-              class="card shadow-lg"
-              style="background-color: #00274d; color: white"
+              class="card shadow-sm rounded-5 bg-light py-4 border-primary-subtle"
             >
               <img
                 src="assets/moeed.jpg"
-                class="card-img-top"
+                class="card-img-top my-2"
                 alt="Muhammad Moeed"
               />
               <div class="card-body text-center">
-                <h5 class="card-title">Muhammad Moeed</h5>
-                <p class="card-text">Backend Developer</p>
-                <p class="text-white">
+                <h5 class="card-title text-primary-emphasis">Muhammad Moeed</h5>
+                <p class="card-text text-primary">Backend Developer</p>
+                <p class="text-primary">
                   Responsible for backend development, API integration, and
                   database management.
                 </p>
@@ -241,20 +322,19 @@
           </div>
 
           <!-- Anus Shafiq -->
-          <div class="col-lg-3 col-md-6 mb-4">
+          <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in">
             <div
-              class="card shadow-lg"
-              style="background-color: #00274d; color: white"
+              class="card shadow-sm rounded-5 bg-light py-4 border-primary-subtle"
             >
               <img
                 src="https://avatars.githubusercontent.com/u/172181100?v=4"
-                class="card-img-top"
+                class="card-img-top my-2"
                 alt="Anus Shafiq"
               />
               <div class="card-body text-center">
-                <h5 class="card-title">Anus Shafiq</h5>
-                <p class="card-text">Frontend Developer</p>
-                <p class="text-white">
+                <h5 class="card-title text-primary-emphasis">Anus Shafiq</h5>
+                <p class="card-text text-primary">Frontend Developer</p>
+                <p class="text-primary">
                   Designed and developed the front-end of the Student
                   Marketplace, ensuring responsive UI.
                 </p>
@@ -262,21 +342,20 @@
             </div>
           </div>
 
-          <!-- Amir Abbad -->
-          <div class="col-lg-3 col-md-6 mb-4">
+          <!-- Amir Abbas -->
+          <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in">
             <div
-              class="card shadow-lg"
-              style="background-color: #00274d; color: white"
+              class="card shadow-sm rounded-5 bg-light py-4 border-primary-subtle"
             >
               <img
                 src="https://avatars.githubusercontent.com/u/172148255?v=4"
-                class="card-img-top"
+                class="card-img-top my-2"
                 alt="Amir Abbad"
               />
               <div class="card-body text-center">
-                <h5 class="card-title">Amir Abbas</h5>
-                <p class="card-text">UI/UX Designer</p>
-                <p class="text-white">
+                <h5 class="card-title text-primary-emphasis">Amir Abbas</h5>
+                <p class="card-text text-primary">UI/UX Designer</p>
+                <p class="text-primary">
                   Designed the sign-up page and focused on enhancing the overall
                   user experience.
                 </p>
@@ -285,20 +364,19 @@
           </div>
 
           <!-- Sarim Siraj -->
-          <div class="col-lg-3 col-md-6 mb-4">
+          <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-left">
             <div
-              class="card shadow-lg"
-              style="background-color: #00274d; color: white"
+              class="card shadow-sm rounded-5 bg-light py-4 border-primary-subtle"
             >
               <img
                 src="https://avatars.githubusercontent.com/u/153583309?v=4"
-                class="card-img-top"
+                class="card-img-top my-2"
                 alt="Sarim Siraj"
               />
               <div class="card-body text-center">
-                <h5 class="card-title">Sarim Siraj</h5>
-                <p class="card-text">Authentication Specialist</p>
-                <p class="text-white">
+                <h5 class="card-title text-primary-emphasis">Sarim Siraj</h5>
+                <p class="card-text text-primary">Authentication Specialist</p>
+                <p class="text-primary">
                   Implemented authentication systems for secure logins and
                   account management.
                 </p>
@@ -311,36 +389,37 @@
     <!-- Team Section End -->
 
     <!-- Footer Start -->
-    <footer class="py-5 bg-dark text-white">
+    <footer class="py-5 bg-primary text-secondary">
       <div class="container">
         <div class="row">
           <!-- Footer Brand -->
-          <div class="col-12">
-            <span class="display-6 fw-bold text-warning"
-              >Student Market Place</span
-            >
-          </div>
+          <a class="navbar-brand col-12" href="#">
+            <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">
+              <img src="assets/logo.png" alt="" width="80px" height="70px" />
+              Edu Exchange
+            </h5>
+          </a>
 
           <!-- Footer Links - About, FAQs, etc. -->
           <div class="col-6 col-md-2 mb-3">
             <ul class="nav flex-column mt-4">
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">About Us</a>
+                <a href="#" class="nav-link p-0 text-info">About Us</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">FAQs</a>
+                <a href="#" class="nav-link p-0 text-info">FAQs</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">Contact us</a>
+                <a href="#" class="nav-link p-0 text-info">Contact us</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">Careers</a>
+                <a href="#" class="nav-link p-0 text-info">Careers</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">Press &amp; Blog</a>
+                <a href="#" class="nav-link p-0 text-info">Press &amp; Blog</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white"
+                <a href="#" class="nav-link p-0 text-info"
                   >Terms &amp; Conditions</a
                 >
               </li>
@@ -349,16 +428,18 @@
 
           <!-- Footer Links - Customer Service -->
           <div class="col-6 col-md-2 mb-3">
-            <h5 class="text-warning mt-2">Customer Service</h5>
             <ul class="nav flex-column mt-4">
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">Help Center</a>
+                <a href="#" class="nav-link p-0 text-info">Customer Service</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white">Privacy Policy</a>
+                <a href="#" class="nav-link p-0 text-info">Help Center</a>
               </li>
               <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-white"
+                <a href="#" class="nav-link p-0 text-info">Privacy Policy</a>
+              </li>
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link p-0 text-info"
                   >Sell on Market Place</a
                 >
               </li>
@@ -367,7 +448,7 @@
 
           <!-- Newsletter Subscription Form -->
           <div class="col-md-5 offset-md-1 mb-3">
-            <form class="text-white">
+            <form class="text-info">
               <h5>Subscribe to our newsletter</h5>
               <p>Monthly digest of what's new and exciting from us.</p>
               <div class="d-flex flex-column flex-sm-row w-100 gap-2">
@@ -377,10 +458,12 @@
                 <input
                   id="newsletter1"
                   type="text"
-                  class="form-control"
+                  class="form-control bg-info"
                   placeholder="Email address"
                 />
-                <button class="btn btn-warning" type="button">Subscribe</button>
+                <button class="btn btn-secondary text-primary" type="button">
+                  Subscribe
+                </button>
               </div>
             </form>
           </div>
@@ -390,7 +473,7 @@
         <div
           class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top border-light"
         >
-          <p class="text-white">© 2025 SMIT Team, All rights reserved.</p>
+          <p class="text-info">© 2025 Edu Exchange, All rights reserved.</p>
           <ul class="list-unstyled d-flex">
             <li class="ms-3">
               <a class="link-body-emphasis" href="#">
@@ -418,9 +501,17 @@
       </div>
     </footer>
     <!-- Footer End -->
-
+    <script
+      src="https://kit.fontawesome.com/2ab38ab271.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="config.js"></script>
-
+    <script type="module" src="auth.js"></script>
     <script type="module" src="post.js"></script>
     <script type="module" src="./image.js"></script>
     <script src="app.js"></script>

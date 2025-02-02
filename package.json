@@ -1,0 +1,22 @@
+{
+  "name": "market-place-team-project",
+  "version": "1.0.0",
+  "description": "The **Student Market** is a simple marketplace application where students can list items for sale, including images and basic details. It allows users to browse, save, and manage their listings while offering an easy-to-use interface for item transactions.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anus-Shafiq/Market-Place-Team-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anus-Shafiq/Market-Place-Team-Project/issues"
+  },
+  "homepage": "https://github.com/Anus-Shafiq/Market-Place-Team-Project#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}
