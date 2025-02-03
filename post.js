@@ -336,7 +336,7 @@ async function addFavorite(postId, userId) {
 
     if (icon) {
       icon.classList.remove("text-secondary");
-      icon.classList.add("text-primary");
+      icon.classList.add("text-danger");
     }
 
     Swal.fire({
@@ -371,7 +371,7 @@ async function removeFavorite(postId, userId) {
 
     const icon = document.getElementById(`${postId}`);
     if (icon) {
-      icon.classList.remove("text-primary");
+      icon.classList.remove("text-danger");
       icon.classList.add("text-secondary");
     }
 
