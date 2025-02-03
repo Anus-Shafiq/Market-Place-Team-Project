@@ -180,9 +180,10 @@ async function fetchProducts() {
                         </small>
                     </div>
                 </div>
-                <div class="card-body">
-                  
-                    
+                <div class="dropdown">
+                    <button class="btn btn-light  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   <i class="fa-solid fa-ellipsis-vertical"></i>
+  </button>
                     <ul class="dropdown-menu">
                         ${
                           product.userId === currentUser.id
@@ -225,7 +226,9 @@ async function fetchProducts() {
             <button class="btn btn-light btn-sm" onclick="toggleFavorite('${
               product.postId
             }')">
-                <i class="fa fa-heart text-secondary"></i>
+                <i id="${
+                  product.postId
+                }" class="fa fa-heart text-secondary"></i>
             </button>
 
             <button class="btn btn-primary btn-sm px-4 ms-auto" onclick="showComingSoonAlert()">
@@ -313,7 +316,6 @@ window.toggleFavorite = async function (postId) {
     console.log("Removing favorite...");
     await removeFavorite(postId, userId);
   }
-  p;
 };
 
 //*********************/ Add post to favorites*****************
@@ -330,10 +332,11 @@ async function addFavorite(postId, userId) {
 
     if (error) throw error;
 
-    const icon = document.querySelector(`i[data-post-id="${postId}"]`);
+    const icon = document.getElementById(`${postId}`);
+
     if (icon) {
       icon.classList.remove("text-secondary");
-      icon.classList.add("text-danger");
+      icon.classList.add("text-primary");
     }
 
     Swal.fire({
@@ -366,9 +369,9 @@ async function removeFavorite(postId, userId) {
 
     console.log("Favorite removed:", data);
 
-    const icon = document.querySelector(`i[data-post-id="${postId}"]`);
+    const icon = document.getElementById(`${postId}`);
     if (icon) {
-      icon.classList.remove("text-danger");
+      icon.classList.remove("text-primary");
       icon.classList.add("text-secondary");
     }
 
