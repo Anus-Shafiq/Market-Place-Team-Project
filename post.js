@@ -5,21 +5,18 @@ let productFile = document.querySelector(".productFile");
 let postButton = document.getElementById("postBtn");
 let productList = document.getElementById("productList");
 
-
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 console.log(currentUser.id);
 
 // *********************** ADD POST IN TABLE *********************
 
 async function addPostToDB() {
-
   const titleRegex = /^[A-Za-z\s]{3,}$/;
   if (!titleRegex.test(productTitle.value)) {
     Swal.fire({
-      title: 'Please enter a valid title (At least 3 characters).',
-      icon: 'error',
-      confirmButtonText: 'OK'
-
+      title: "Please enter a valid title (At least 3 characters).",
+      icon: "error",
+      confirmButtonText: "OK",
     });
     return;
   }
@@ -27,11 +24,9 @@ async function addPostToDB() {
   const priceRegex = /^[1-9]\d*(\.\d+)?$/;
   if (!priceRegex.test(productPrice.value)) {
     Swal.fire({
-
-      title: 'Please enter a valid price (Must be greater than 0).',
-      icon: 'error',
-      confirmButtonText: 'OK'
-
+      title: "Please enter a valid price (Must be greater than 0).",
+      icon: "error",
+      confirmButtonText: "OK",
     });
     return;
   }
@@ -39,22 +34,18 @@ async function addPostToDB() {
   const descriptionRegex = /^.{10,}$/;
   if (!descriptionRegex.test(productDescription.value)) {
     Swal.fire({
-
-      title: 'Description must be at least 10 characters long.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-
+      title: "Description must be at least 10 characters long.",
+      icon: "error",
+      confirmButtonText: "OK",
     });
     return;
   }
 
   if (productFile.files.length === 0) {
     Swal.fire({
-
-      title: 'Please upload an image.',
-      icon: 'info',
-      confirmButtonText: 'OK'
-
+      title: "Please upload an image.",
+      icon: "info",
+      confirmButtonText: "OK",
     });
     return;
   }
@@ -81,7 +72,6 @@ async function addPostToDB() {
     console.error(error.message);
   }
 }
-
 
 // ****** UPLOAD PRODUCT IMAGE | GET URL FROM BUCKET & UPDATE IN DATABASE ******
 
@@ -120,11 +110,9 @@ async function uploadProductImage(productId) {
 
       if (updateError) throw updateError;
       Swal.fire({
-
-        title: 'Product added successfully!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-
+        title: "Product added successfully!",
+        icon: "success",
+        confirmButtonText: "OK",
       });
 
       resetForm();
@@ -141,16 +129,16 @@ function resetForm() {
   productFile.value = "";
 }
 
-
 // *****************FETCH PRODUCT FROM DATABASE*********************8*
-
 
 async function fetchProducts() {
   try {
     const { data, error } = await supabase.from("Product").select("*");
 
-    const { data: userData, error: userError } = await supabase.from("users").select("*");
-    console.log(userData)
+    const { data: userData, error: userError } = await supabase
+      .from("users")
+      .select("*");
+    console.log(userData);
 
     if (error) throw error;
     if (userError) throw userError;
@@ -158,12 +146,9 @@ async function fetchProducts() {
     let productList = document.getElementById("productList");
     productList.innerHTML = "";
 
-
-    data.reverse().forEach(product => {
-
-      const user = userData.find(u => u.userId === product.userId);
-      console.log(user)
-
+    data.reverse().forEach((product) => {
+      const user = userData.find((u) => u.userId === product.userId);
+      console.log(user);
 
       const username = user ? user.name : "Anonymouse";
 
@@ -195,20 +180,10 @@ async function fetchProducts() {
                         </small>
                     </div>
                 </div>
-                <div class="card-body">
-                  <h5 class="card-title">${product.title}</h5>
-                  <p class="card-text">${product.description}</p>
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-danger w-75" onclick="deleteProduct(${
-                      product.id
-                    })">Delete</button>
-                    <button class="btn btn-light" onclick="toggleFavorite(${
-                      product.id
-                    })">
-                      <i id="fav-icon-${
-                        product.id
-                      }" class="fa fa-heart text-secondary"></i>
-                    </button>
+                <div class="dropdown">
+                    <button class="btn btn-light  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   <i class="fa-solid fa-ellipsis-vertical"></i>
+  </button>
                     <ul class="dropdown-menu">
                         ${
                           product.userId === currentUser.id
@@ -251,7 +226,9 @@ async function fetchProducts() {
             <button class="btn btn-light btn-sm" onclick="toggleFavorite('${
               product.postId
             }')">
-                <i class="fa fa-heart text-secondary"></i>
+                <i id="${
+                  product.postId
+                }" class="fa fa-heart text-secondary"></i>
             </button>
 
             <button class="btn btn-primary btn-sm px-4 ms-auto" onclick="showComingSoonAlert()">
@@ -267,7 +244,6 @@ async function fetchProducts() {
   } catch (error) {
     console.error(error.message);
   }
-
 }
 
 postButton.addEventListener("click", addPostToDB);
@@ -277,17 +253,14 @@ window.onload = fetchProducts;
 
 async function deleteMyPost(postId) {
   try {
-
-
     const userId = currentUser.id;
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'Do you really want to delete this post?',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Do you really want to delete this post?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
     });
     if (result.isConfirmed) {
       const { data, error } = await supabase
@@ -302,12 +275,10 @@ async function deleteMyPost(postId) {
       if (data.length > 0) {
         fetchProducts();
         Swal.fire({
-
-          title: 'Deleted!',
-          text: 'Your post has been deleted.',
-          icon: 'success',
-          confirmButtonText: 'OK'
-
+          title: "Deleted!",
+          text: "Your post has been deleted.",
+          icon: "success",
+          confirmButtonText: "OK",
         });
       } else {
         console.log("post not found to delete.");
@@ -345,15 +316,12 @@ window.toggleFavorite = async function (postId) {
     console.log("Removing favorite...");
     await removeFavorite(postId, userId);
   }
-p
 };
-=======
 
 //*********************/ Add post to favorites*****************
 
 async function addFavorite(postId, userId) {
   try {
-
     const { error } = await supabase.from("Favorite").insert([
       {
         postId: postId,
@@ -362,10 +330,10 @@ async function addFavorite(postId, userId) {
       },
     ]);
 
-
     if (error) throw error;
 
-    const icon = document.querySelector(`i[data-post-id="${postId}"]`);
+    const icon = document.getElementById(`${postId}`);
+
     if (icon) {
       icon.classList.remove("text-secondary");
       icon.classList.add("text-danger");
@@ -374,16 +342,15 @@ async function addFavorite(postId, userId) {
     Swal.fire({
       toast: true,
 
-      position: 'bottom-end',
-      icon: 'success',
-      title: 'Favorite Added!',
-      text: 'Post Successfully added from your favorites.',
+      position: "bottom-end",
+      icon: "success",
+      title: "Favorite Added!",
+      text: "Post Successfully added from your favorites.",
 
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
     });
-
   } catch (error) {
     console.error(error.message);
   }
@@ -402,7 +369,7 @@ async function removeFavorite(postId, userId) {
 
     console.log("Favorite removed:", data);
 
-    const icon = document.querySelector(`i[data-post-id="${postId}"]`);
+    const icon = document.getElementById(`${postId}`);
     if (icon) {
       icon.classList.remove("text-danger");
       icon.classList.add("text-secondary");
@@ -411,16 +378,15 @@ async function removeFavorite(postId, userId) {
     Swal.fire({
       toast: true,
 
-      position: 'bottom-end',
-      icon: 'error',
-      title: 'Favorite Removed!',
-      text: 'Post removed from your favorites.',
+      position: "bottom-end",
+      icon: "error",
+      title: "Favorite Removed!",
+      text: "Post removed from your favorites.",
 
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
     });
-
   } catch (error) {
     console.error("Error removing favorite:", error.message);
   }
